@@ -13,10 +13,10 @@ function App() {
 
   // State for title text options
   const [titleOptions, setTitleOptions] = useState({
-    rotationVariation: 1,
+    rotationVariation: 3,
     baselineVariation: 1,
-    trackingVariation: 20,
-    sizeVariation: 5,
+    trackingVariation: 100,
+    sizeVariation: 0,
   })
 
   // State for copy notification
@@ -148,7 +148,9 @@ function App() {
           </HumaneTitle>
           
           <HumaneTitle options={titleOptions} as="h4">
-            Another example with a different heading level
+            Title with a line break
+            {'\n'}
+            showing the newline support
           </HumaneTitle>
         </div>
       </div>
@@ -208,15 +210,26 @@ function App() {
           )}
         </div>
         
-        <div className="preview">
+        <div className="preview" style={{color:'black'}}>
           <HumaneBody options={bodyOptions}>
             This is a paragraph with humanizing effects applied to make the text look more natural and hand-written.
             The text follows a curved path with small variations to create an organic feeling.
           </HumaneBody>
           
           <HumaneBody options={bodyOptions}>
-            A second paragraph to demonstrate how multiple blocks of text appear with the humanizing effects.
-            Each paragraph gets its own unique curve and variations while maintaining readability.
+            This is the first paragraph with a humanizing effect.
+            {'\n'}{'\n'}
+            This is a second paragraph separated by a double newline. The paragraphs are properly separated with appropriate spacing.
+            {'\n'}{'\n'}
+            This third paragraph demonstrates how multiple paragraphs are handled, each with its own unique curve.
+          </HumaneBody>
+          
+          <HumaneBody options={bodyOptions}>
+            This paragraph has a line break within it.
+            {'\n'}
+            This continues on a new line but within the same paragraph.
+            {'\n'}
+            Each line gets its own curve while maintaining paragraph continuity.
           </HumaneBody>
         </div>
       </div>

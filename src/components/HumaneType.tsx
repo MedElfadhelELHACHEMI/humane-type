@@ -47,14 +47,49 @@ const HumaneType = ({
   // Random number within range
   const rand = useCallback((min: number, max: number) => Math.random() * (max - min) + min, []);
 
+  // Helper function to normalize React children to a single string
+  const getTextContent = useCallback((childrenInput: React.ReactNode): string => {
+    if (typeof childrenInput === 'string') {
+      return childrenInput;
+    }
+    
+    if (Array.isArray(childrenInput)) {
+      return childrenInput.map(child => getTextContent(child)).join('');
+    }
+    
+    if (typeof childrenInput === 'number') {
+      return childrenInput.toString();
+    }
+    
+    if (childrenInput === null || childrenInput === undefined) {
+      return '';
+    }
+    
+    // Handle React elements
+    if (React.isValidElement(childrenInput)) {
+      const props = childrenInput.props as {children?: React.ReactNode};
+      return getTextContent(props.children || '');
+    }
+    
+    return '';
+  }, []);
+
   // Apply title effect (character by character modifications)
   const applyTitleEffect = useCallback((element: HTMLElement, options: typeof mergedTitleOptions) => {
-    const text = element.textContent || '';
+    // Get all text content from children, normalizing React nodes
+    const text = getTextContent(children);
     element.textContent = '';
 
     // Process each character
     for (let i = 0; i < text.length; i++) {
       const char = text[i];
+      
+      // Handle newlines in title text
+      if (char === '\n') {
+        element.appendChild(document.createElement('br'));
+        continue;
+      }
+      
       const span = document.createElement('span');
       span.textContent = char;
       
@@ -77,108 +112,132 @@ const HumaneType = ({
       
       element.appendChild(span);
     }
-  }, [rand]);
+  }, [rand, children, getTextContent]);
 
   // Apply body effect (path-based text with curves)
   const applyBodyEffect = useCallback((element: HTMLElement, options: typeof mergedBodyOptions) => {
-    // Get text content
-    const text = element.textContent || '';
+    // Get all text content from children, normalizing React nodes
+    const text = getTextContent(children);
     element.innerHTML = '';
     
-    // Split text by lines or create a single line
-    const lines = text.split('\n');
+    // If the text is empty, don't process further
+    if (!text.trim()) {
+      return;
+    }
     
-    // Create a container for all lines
+    // Split text by double newlines to process each paragraph separately
+    const paragraphs = text.split(/\n\n+/);
+    
+    // Create a container for all paragraphs
     const container = document.createElement('div');
     container.className = 'humane-container';
     
-    // Process each line
-    lines.forEach((line, index) => {
-      if (line.trim() === '') {
-        container.appendChild(document.createElement('br'));
+    // Process each paragraph
+    paragraphs.forEach((paragraph, paragraphIndex) => {
+      if (paragraph.trim() === '') {
+        // Add empty paragraph spacing
+        const spacer = document.createElement('div');
+        spacer.style.height = '1em';
+        container.appendChild(spacer);
         return;
       }
       
-      // Create line container
-      const lineContainer = document.createElement('div');
-      lineContainer.className = 'humane-line';
-      lineContainer.style.position = 'relative';
-      lineContainer.style.minHeight = '2em';
-      lineContainer.style.marginBottom = '0.5em';
+      // Split paragraph into lines (for explicit line breaks within a paragraph)
+      const lines = paragraph.split(/\n/);
       
-      // Create SVG for the curved text
-      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      svg.setAttribute('width', '100%');
-      svg.setAttribute('height', '50');
-      svg.style.position = 'absolute';
-      svg.style.top = '0';
-      svg.style.left = '0';
-      svg.style.width = '100%';
-      svg.style.height = '100%';
-      svg.style.overflow = 'visible';
+      // Create paragraph container
+      const paragraphContainer = document.createElement('div');
+      paragraphContainer.className = 'humane-paragraph';
+
+      // Process each line in the paragraph
+      lines.forEach((line, lineIndex) => {
+        if (line.trim() === '') {
+          paragraphContainer.appendChild(document.createElement('br'));
+          return;
+        }
+        
+        // Create line container
+        const lineContainer = document.createElement('div');
+        lineContainer.className = 'humane-line';
+        lineContainer.style.position = 'relative';
+
+        // Create SVG for the curved text
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('width', '100%');
+        svg.setAttribute('height', '50');
+        svg.style.position = 'absolute';
+        svg.style.top = '0';
+        svg.style.left = '0';
+        svg.style.width = '100%';
+        svg.style.height = '100%';
+        svg.style.overflow = 'visible';
+        
+        // Calculate random variations for this line
+        const horizontalOffset = rand(-options.horizontalVariation, options.horizontalVariation);
+        const verticalOffset = rand(-2, options.verticalVariation);
+        
+        // Create path for text to follow
+        const pathId = `path-${paragraphIndex}-${lineIndex}-${Math.floor(Math.random() * 10000)}`;
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('id', pathId);
+        path.setAttribute('fill', 'none');
+        
+        // Calculate control points for curve
+        const startX = horizontalOffset;
+        const startY = 20 + verticalOffset;
+        const endX = 1000; // Large value to ensure it extends across container
+        const endY = 20 + rand(0, options.curveIntensity) + verticalOffset;
+        const controlX = 500; // Midpoint for curve control
+        const controlY = 20 + rand(-5, 5) + verticalOffset;
+        
+        // Set path data
+        path.setAttribute('d', `M${startX},${startY} Q${controlX},${controlY} ${endX},${endY}`);
+        
+        // Add path to SVG
+        svg.appendChild(path);
+        
+        // Create text element that follows the path
+        const svgText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        svgText.style.fill = 'currentColor';
+        svgText.style.fontSize = 'inherit';
+        svgText.style.fontFamily = 'inherit';
+        svgText.style.dominantBaseline = 'middle';
+        
+        // Create textPath element
+        const textPath = document.createElementNS('http://www.w3.org/2000/svg', 'textPath');
+        textPath.setAttribute('href', `#${pathId}`);
+        textPath.setAttribute('startOffset', '0');
+        textPath.textContent = line;
+        
+        // Add textPath to text element
+        svgText.appendChild(textPath);
+        
+        // Add text to SVG
+        svg.appendChild(svgText);
+        
+        // Add SVG to line container
+        lineContainer.appendChild(svg);
+        
+        // Add invisible text for accessibility and selection
+        const hiddenText = document.createElement('span');
+        hiddenText.textContent = line;
+        hiddenText.className = 'humane-hidden-text';
+        hiddenText.style.visibility = 'hidden';
+        hiddenText.style.position = 'absolute';
+        hiddenText.style.pointerEvents = 'none';
+        lineContainer.appendChild(hiddenText);
+        
+        // Add line to paragraph container
+        paragraphContainer.appendChild(lineContainer);
+      });
       
-      // Calculate random variations for this line
-      const horizontalOffset = rand(-options.horizontalVariation, options.horizontalVariation);
-      const verticalOffset = rand(-2, options.verticalVariation);
-      
-      // Create path for text to follow
-      const pathId = `path-${index}-${Math.floor(Math.random() * 10000)}`;
-      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      path.setAttribute('id', pathId);
-      path.setAttribute('fill', 'none');
-      
-      // Calculate control points for curve
-      const startX = horizontalOffset;
-      const startY = 20 + verticalOffset;
-      const endX = 1000; // Large value to ensure it extends across container
-      const endY = 20 + rand(0, options.curveIntensity) + verticalOffset;
-      const controlX = 500; // Midpoint for curve control
-      const controlY = 20 + rand(-5, 5) + verticalOffset;
-      
-      // Set path data
-      path.setAttribute('d', `M${startX},${startY} Q${controlX},${controlY} ${endX},${endY}`);
-      
-      // Add path to SVG
-      svg.appendChild(path);
-      
-      // Create text element that follows the path
-      const svgText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      svgText.style.fill = 'currentColor';
-      svgText.style.fontSize = 'inherit';
-      svgText.style.fontFamily = 'inherit';
-      svgText.style.dominantBaseline = 'middle';
-      
-      // Create textPath element
-      const textPath = document.createElementNS('http://www.w3.org/2000/svg', 'textPath');
-      textPath.setAttribute('href', `#${pathId}`);
-      textPath.setAttribute('startOffset', '0');
-      textPath.textContent = line;
-      
-      // Add textPath to text element
-      svgText.appendChild(textPath);
-      
-      // Add text to SVG
-      svg.appendChild(svgText);
-      
-      // Add SVG to line container
-      lineContainer.appendChild(svg);
-      
-      // Add invisible text for accessibility and selection
-      const hiddenText = document.createElement('span');
-      hiddenText.textContent = line;
-      hiddenText.className = 'humane-hidden-text';
-      hiddenText.style.visibility = 'hidden';
-      hiddenText.style.position = 'absolute';
-      hiddenText.style.pointerEvents = 'none';
-      lineContainer.appendChild(hiddenText);
-      
-      // Add line to container
-      container.appendChild(lineContainer);
+      // Add paragraph to container
+      container.appendChild(paragraphContainer);
     });
     
     // Add container to element
     element.appendChild(container);
-  }, [rand]);
+  }, [rand, children, getTextContent]);
 
   // Function to apply humanized styling to the text
   useEffect(() => {
@@ -191,10 +250,7 @@ const HumaneType = ({
       element.removeChild(element.firstChild);
     }
     
-    // Create a text node with the children content
-    const textNode = document.createTextNode(children as string);
-    element.appendChild(textNode);
-    
+    // Process text based on mode
     if (mode === 'title') {
       applyTitleEffect(element, mergedTitleOptions);
     } else {
@@ -211,7 +267,7 @@ const HumaneType = ({
       className={`humane-type ${mode} ${className}`}
       {...restProps}
     >
-      {children}
+      {/* We don't render children here as they will be processed in the effect */}
     </Component>
   );
 };

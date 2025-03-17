@@ -19,6 +19,7 @@ pnpm add humanetype
 
 - **Title Text Effects**: Apply subtle character-by-character variations to create naturally imperfect titles
 - **Body Text Effects**: Transform paragraphs by placing text on curved paths
+- **Newline Support**: Properly handles paragraph breaks and line breaks within text
 - **Customizable**: Control the intensity of all effects
 - **Accessibility**: Maintains text selection and screen reader compatibility
 - **TypeScript Support**: Fully typed component props
@@ -79,6 +80,36 @@ The `HumaneBody` component places text on a curved path:
 </HumaneBody>
 ```
 
+### Working with Paragraphs and Line Breaks
+
+The library supports both paragraph breaks (double newlines) and line breaks (single newlines):
+
+```jsx
+<HumaneBody>
+  This is the first paragraph.
+  
+  This is a second paragraph after a double newline.
+  
+  Each paragraph gets its own styling and spacing.
+</HumaneBody>
+
+<HumaneBody>
+  This paragraph has a line break.
+  {'\n'}
+  This continues on a new line but within the same paragraph.
+</HumaneBody>
+```
+
+In titles, you can also use newlines to create multi-line titles:
+
+```jsx
+<HumaneTitle>
+  Title with a line break
+  {'\n'}
+  on two lines
+</HumaneTitle>
+```
+
 ### Customizing HTML Element
 
 You can specify which HTML element to use with the `as` prop:
@@ -134,10 +165,10 @@ pnpm build
 
 ## Credits
 
-This library is inspired by the InDesign "Humane Type" [plugin](https://www.behance.net/gallery/35895897/Humane-Type). The original plugin concept has been adapted to work as a React component for web applications.
+This library is inspired by the InDesign "Humane Type" plugin. The original plugin concept has been adapted to work as a React component for web applications.
 
 ## License
 
 This project is licensed under the Creative Commons Attribution 4.0 International License (CC-BY-4.0).
 
-The original InDesign "Humane Type" [plugin](https://www.behance.net/gallery/35895897/Humane-Type) that inspired this library is also licensed under the Creative Commons Attribution 4.0 International License.
+The original InDesign "Humane Type" plugin that inspired this library is also licensed under the Creative Commons Attribution 4.0 International License.

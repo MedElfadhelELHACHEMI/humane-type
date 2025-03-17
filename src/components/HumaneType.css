@@ -1,7 +1,6 @@
 /* HumaneType component styles */
 .humane-type {
   position: relative;
-  color: black;
 }
 
 .humane-container {
@@ -10,7 +9,7 @@
 
 .humane-line {
   position: relative;
-  min-height: 2em;
+  min-height: 1em;
   margin-bottom: 0.5em;
 }
 

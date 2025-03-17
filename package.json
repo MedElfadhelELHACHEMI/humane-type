@@ -1,8 +1,8 @@
 {
   "name": "humanetype",
-  "version": "1.0.2",
+  "version": "1.1.1",
   "description": "React component library for adding natural, humanized variations to text",
-  "author": "MedElfadhelELHACHEMI",
+  "author": "Med Elfadhel EL HACHEMI",
   "license": "CC-BY-4.0",
   "type": "module",
   "main": "dist/humane.umd.js",
