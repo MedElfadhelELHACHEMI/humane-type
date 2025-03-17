@@ -8,11 +8,11 @@ A React component library for adding natural, humanized variations to text. Insp
 ## Installation
 
 ```bash
-npm install @humanetype/humane
+npm install humanetype
 # or
-yarn add @humanetype/humane
+yarn add humanetype
 # or
-pnpm add @humanetype/humane
+pnpm add humanetype
 ```
 
 ## Features
@@ -28,8 +28,8 @@ pnpm add @humanetype/humane
 ### Basic Example
 
 ```jsx
-import { HumaneTitle, HumaneBody } from '@humanetype/humane';
-import '@humanetype/humane/style.css';
+import { HumaneTitle, HumaneBody } from 'humanetype';
+import 'humanetype/style.css';
 
 function MyComponent() {
   return (
@@ -94,7 +94,7 @@ You can specify which HTML element to use with the `as` prop:
 For more control, you can use the base `HumaneType` component:
 
 ```jsx
-import { HumaneType } from '@humanetype/humane';
+import { HumaneType } from 'humanetype';
 
 <HumaneType 
   mode="title"
@@ -134,10 +134,10 @@ pnpm build
 
 ## Credits
 
-This library is inspired by the InDesign "Humane Type" plugin. The original plugin concept has been adapted to work as a React component for web applications.
+This library is inspired by the InDesign "Humane Type" [plugin](https://www.behance.net/gallery/35895897/Humane-Type). The original plugin concept has been adapted to work as a React component for web applications.
 
 ## License
 
 This project is licensed under the Creative Commons Attribution 4.0 International License (CC-BY-4.0).
 
-The original InDesign "Humane Type" plugin that inspired this library is also licensed under the Creative Commons Attribution 4.0 International License.
+The original InDesign "Humane Type" [plugin](https://www.behance.net/gallery/35895897/Humane-Type) that inspired this library is also licensed under the Creative Commons Attribution 4.0 International License.
