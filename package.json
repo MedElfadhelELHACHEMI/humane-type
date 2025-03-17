@@ -1,8 +1,8 @@
 {
-  "name": "@humanetype/humane",
+  "name": "humanetype",
   "version": "1.0.0",
   "description": "React component library for adding natural, humanized variations to text",
-  "author": "Humane Type",
+  "author": "MedElfadhelELHACHEMI",
   "license": "CC-BY-4.0",
   "type": "module",
   "main": "dist/humane.umd.js",
@@ -62,12 +62,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/humanetype/humane.git"
+    "url": "https://github.com/MedElfadhelELHACHEMI/humane-type.git"
   },
   "bugs": {
-    "url": "https://github.com/humanetype/humane/issues"
+    "url": "https://github.com/MedElfadhelELHACHEMI/humane-type/issues"
   },
-  "homepage": "https://github.com/humanetype/humane#readme",
+  "homepage": "https://github.com/MedElfadhelELHACHEMI/humane-type#readme",
   "publishConfig": {
     "access": "public"
   }

@@ -2,8 +2,8 @@
 
 A React component library for adding natural, humanized variations to text. Inspired by the InDesign "Humane Type" plugin, this library allows you to create text with subtle imperfections that make it appear more hand-crafted and less mechanical.
 
-![npm](https://img.shields.io/npm/v/@humanetype/humane)
-![license](https://img.shields.io/npm/l/@humanetype/humane)
+![npm](https://img.shields.io/npm/v/humanetype)
+![license](https://img.shields.io/npm/l/humanetype)
 
 ## Installation
 
