@@ -1,8 +1,8 @@
 {
-  "name": "humane",
-  "version": "0.1.0",
+  "name": "@humanetype/humane",
+  "version": "1.0.0",
   "description": "React component library for adding natural, humanized variations to text",
-  "author": "",
+  "author": "Humane Type",
   "license": "CC-BY-4.0",
   "type": "module",
   "main": "dist/humane.umd.js",
@@ -24,14 +24,13 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@eslint/js": "^9.21.0",
     "@types/node": "^22.13.10",
@@ -57,16 +56,18 @@
     "handwriting",
     "design",
     "ui",
-    "components"
+    "components",
+    "indesign",
+    "humane-type"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/humane.git"
+    "url": "https://github.com/humanetype/humane.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/humane/issues"
+    "url": "https://github.com/humanetype/humane/issues"
   },
-  "homepage": "https://github.com/yourusername/humane#readme",
+  "homepage": "https://github.com/humanetype/humane#readme",
   "publishConfig": {
     "access": "public"
   }

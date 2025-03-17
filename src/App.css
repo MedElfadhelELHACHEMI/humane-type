@@ -30,6 +30,7 @@ h1 {
   padding: 1rem;
   background-color: #eee;
   border-radius: 6px;
+  position: relative;
 }
 
 .control-group {
@@ -45,6 +46,45 @@ h1 {
 .control-group input[type="range"] {
   width: 100%;
   margin-top: 0.5rem;
+}
+
+.copy-button {
+  background-color: #4a86e8;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 10px;
+}
+
+.copy-button:hover {
+  background-color: #3a76d8;
+}
+
+.copy-button:active {
+  background-color: #2a66c8;
+}
+
+.copy-notification {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  background-color: #4caf50;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  animation: fadeInOut 2s ease;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 .preview {

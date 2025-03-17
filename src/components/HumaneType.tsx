@@ -1,6 +1,20 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback, useMemo } from 'react';
 import './HumaneType.css';
 import { HumaneTypeProps } from '../types';
+
+// Default values from original InDesign plugin
+const DEFAULT_BODY_OPTIONS = {
+  curveIntensity: 15,   // Line curve intensity
+  horizontalVariation: 5, // Random horizontal variation
+  verticalVariation: 3,  // Random vertical variation
+};
+
+const DEFAULT_TITLE_OPTIONS = {
+  rotationVariation: 3,  // Character rotation variation
+  baselineVariation: 1,  // Baseline shift variation
+  trackingVariation: 100, // Tracking (letter-spacing) variation
+  sizeVariation: 0,      // Font size variation
+};
 
 /**
  * Applies humanizing text effects to children
@@ -17,52 +31,24 @@ const HumaneType = ({
   className = '',
   ...restProps
 }: HumaneTypeProps) => {
-  // Default values from original InDesign plugin
-  const defaultBodyOptions = {
-    curveIntensity: 15,   // Line curve intensity
-    horizontalVariation: 5, // Random horizontal variation
-    verticalVariation: 3,  // Random vertical variation
-  };
-
-  const defaultTitleOptions = {
-    rotationVariation: 1,  // Character rotation variation
-    baselineVariation: 1,  // Baseline shift variation
-    trackingVariation: 20, // Tracking (letter-spacing) variation
-    sizeVariation: 5,      // Font size variation
-  };
-
-  // Merge defaults with provided options
-  const mergedBodyOptions = { ...defaultBodyOptions, ...bodyOptions };
-  const mergedTitleOptions = { ...defaultTitleOptions, ...titleOptions };
   const textRef = useRef<HTMLElement>(null);
 
-  // Function to apply humanized styling to the text
-  useEffect(() => {
-    if (!textRef.current) return;
-    
-    const element = textRef.current;
-    
-    // Clear previous content
-    while (element.firstChild) {
-      element.removeChild(element.firstChild);
-    }
-    
-    // Create a text node with the children content
-    const textNode = document.createTextNode(children as string);
-    element.appendChild(textNode);
-    
-    if (mode === 'title') {
-      applyTitleEffect(element, mergedTitleOptions);
-    } else {
-      applyBodyEffect(element, mergedBodyOptions);
-    }
-  }, [children, mode, mergedBodyOptions, mergedTitleOptions]);
+  // Merge defaults with provided options
+  const mergedBodyOptions = useMemo(() => ({
+    ...DEFAULT_BODY_OPTIONS,
+    ...bodyOptions
+  }), [bodyOptions]);
+  
+  const mergedTitleOptions = useMemo(() => ({
+    ...DEFAULT_TITLE_OPTIONS,
+    ...titleOptions
+  }), [titleOptions]);
 
   // Random number within range
-  const rand = (min: number, max: number) => Math.random() * (max - min) + min;
+  const rand = useCallback((min: number, max: number) => Math.random() * (max - min) + min, []);
 
   // Apply title effect (character by character modifications)
-  const applyTitleEffect = (element: HTMLElement, options: typeof mergedTitleOptions) => {
+  const applyTitleEffect = useCallback((element: HTMLElement, options: typeof mergedTitleOptions) => {
     const text = element.textContent || '';
     element.textContent = '';
 
@@ -91,10 +77,10 @@ const HumaneType = ({
       
       element.appendChild(span);
     }
-  };
+  }, [rand]);
 
   // Apply body effect (path-based text with curves)
-  const applyBodyEffect = (element: HTMLElement, options: typeof mergedBodyOptions) => {
+  const applyBodyEffect = useCallback((element: HTMLElement, options: typeof mergedBodyOptions) => {
     // Get text content
     const text = element.textContent || '';
     element.innerHTML = '';
@@ -192,7 +178,29 @@ const HumaneType = ({
     
     // Add container to element
     element.appendChild(container);
-  };
+  }, [rand]);
+
+  // Function to apply humanized styling to the text
+  useEffect(() => {
+    if (!textRef.current) return;
+    
+    const element = textRef.current;
+    
+    // Clear previous content
+    while (element.firstChild) {
+      element.removeChild(element.firstChild);
+    }
+    
+    // Create a text node with the children content
+    const textNode = document.createTextNode(children as string);
+    element.appendChild(textNode);
+    
+    if (mode === 'title') {
+      applyTitleEffect(element, mergedTitleOptions);
+    } else {
+      applyBodyEffect(element, mergedBodyOptions);
+    }
+  }, [children, mode, mergedBodyOptions, mergedTitleOptions, applyTitleEffect, applyBodyEffect]);
 
   // Create the component with the specified HTML element
   const Component = as as React.ElementType;

@@ -1,4 +1,4 @@
-import { ReactNode, ElementType } from 'react';
+import { ReactNode, ElementType, HTMLAttributes } from 'react';
 
 export interface BodyOptions {
   curveIntensity?: number;
@@ -13,28 +13,25 @@ export interface TitleOptions {
   sizeVariation?: number;
 }
 
-export interface HumaneTypeProps {
+export interface HumaneTypeProps extends HTMLAttributes<HTMLElement> {
   children: ReactNode;
   bodyOptions?: BodyOptions;
   titleOptions?: TitleOptions;
   mode?: 'body' | 'title';
   as?: ElementType;
   className?: string;
-  [key: string]: any; // Additional props
 }
 
-export interface HumaneTitleProps {
+export interface HumaneTitleProps extends HTMLAttributes<HTMLElement> {
   children: ReactNode;
   options?: TitleOptions;
   as?: ElementType;
   className?: string;
-  [key: string]: any; // Additional props
 }
 
-export interface HumaneBodyProps {
+export interface HumaneBodyProps extends HTMLAttributes<HTMLElement> {
   children: ReactNode;
   options?: BodyOptions;
   as?: ElementType;
   className?: string;
-  [key: string]: any; // Additional props
 }

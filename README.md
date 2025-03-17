@@ -2,14 +2,17 @@
 
 A React component library for adding natural, humanized variations to text. Inspired by the InDesign "Humane Type" plugin, this library allows you to create text with subtle imperfections that make it appear more hand-crafted and less mechanical.
 
+![npm](https://img.shields.io/npm/v/@humanetype/humane)
+![license](https://img.shields.io/npm/l/@humanetype/humane)
+
 ## Installation
 
 ```bash
-npm install humane
+npm install @humanetype/humane
 # or
-yarn add humane
+yarn add @humanetype/humane
 # or
-pnpm add humane
+pnpm add @humanetype/humane
 ```
 
 ## Features
@@ -25,8 +28,8 @@ pnpm add humane
 ### Basic Example
 
 ```jsx
-import { HumaneTitle, HumaneBody } from 'humane';
-import 'humane/style.css';
+import { HumaneTitle, HumaneBody } from '@humanetype/humane';
+import '@humanetype/humane/style.css';
 
 function MyComponent() {
   return (
@@ -91,7 +94,7 @@ You can specify which HTML element to use with the `as` prop:
 For more control, you can use the base `HumaneType` component:
 
 ```jsx
-import { HumaneType } from 'humane';
+import { HumaneType } from '@humanetype/humane';
 
 <HumaneType 
   mode="title"
@@ -107,13 +110,21 @@ import { HumaneType } from 'humane';
 </HumaneType>
 ```
 
-## Development
+## Interactive Demo
 
-To run the development server with the demo application:
+The package includes an interactive demo that allows you to experiment with different settings for both title and body text effects. Simply run:
 
 ```bash
 pnpm dev
 ```
+
+### Demo Features
+
+- **Sliders** for adjusting all effect parameters in real-time
+- **Copy buttons** to copy your current settings to the clipboard, making it easy to use them in your own code
+- **Live preview** of how the effects look with your current settings
+
+## Development
 
 To build the library:
 
@@ -121,6 +132,12 @@ To build the library:
 pnpm build
 ```
 
+## Credits
+
+This library is inspired by the InDesign "Humane Type" plugin. The original plugin concept has been adapted to work as a React component for web applications.
+
 ## License
 
-Creative Commons Attribution 4.0 International License
+This project is licensed under the Creative Commons Attribution 4.0 International License (CC-BY-4.0).
+
+The original InDesign "Humane Type" plugin that inspired this library is also licensed under the Creative Commons Attribution 4.0 International License.

@@ -19,6 +19,12 @@ function App() {
     sizeVariation: 5,
   })
 
+  // State for copy notification
+  const [copyNotification, setCopyNotification] = useState({
+    visible: false,
+    type: ''
+  });
+
   // Handler for updating body options
   const handleBodyOptionChange = (option: keyof typeof bodyOptions, value: number) => {
     setBodyOptions(prev => ({
@@ -33,6 +39,35 @@ function App() {
       ...prev,
       [option]: value
     }))
+  }
+
+  // Copy current options to clipboard
+  const copyToClipboard = (type: 'title' | 'body') => {
+    const options = type === 'title' ? titleOptions : bodyOptions;
+    
+    // Create a code snippet for the options
+    const codeSnippet = `${type === 'title' ? 'titleOptions' : 'bodyOptions'}: ${JSON.stringify(options, null, 2)}`;
+    
+    // Copy to clipboard
+    navigator.clipboard.writeText(codeSnippet)
+      .then(() => {
+        // Show notification
+        setCopyNotification({
+          visible: true,
+          type
+        });
+        
+        // Hide notification after 2 seconds
+        setTimeout(() => {
+          setCopyNotification({
+            visible: false,
+            type: ''
+          });
+        }, 2000);
+      })
+      .catch(err => {
+        console.error('Failed to copy: ', err);
+      });
   }
 
   return (
@@ -94,6 +129,17 @@ function App() {
               />
             </label>
           </div>
+          
+          <button 
+            className="copy-button"
+            onClick={() => copyToClipboard('title')}
+          >
+            Copy Title Options
+          </button>
+          
+          {copyNotification.visible && copyNotification.type === 'title' && (
+            <div className="copy-notification">Copied to clipboard!</div>
+          )}
         </div>
         
         <div className="preview">
@@ -149,6 +195,17 @@ function App() {
               />
             </label>
           </div>
+          
+          <button 
+            className="copy-button"
+            onClick={() => copyToClipboard('body')}
+          >
+            Copy Body Options
+          </button>
+          
+          {copyNotification.visible && copyNotification.type === 'body' && (
+            <div className="copy-notification">Copied to clipboard!</div>
+          )}
         </div>
         
         <div className="preview">
