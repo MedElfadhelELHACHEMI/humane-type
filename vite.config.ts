@@ -28,9 +28,10 @@ export default defineConfig({
           react: 'React',
           'react-dom': 'ReactDOM'
         },
-        // Ensure CSS is included
+        // Ensure CSS is included with the correct filename
         assetFileNames: (assetInfo) => {
-          if (assetInfo.name === 'style.css') {
+          // Change this condition to match any CSS file
+          if (assetInfo.name && assetInfo.name.endsWith('.css')) {
             return 'humane.css';
           }
           return assetInfo.name || '';

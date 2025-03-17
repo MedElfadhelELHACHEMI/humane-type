@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.1.1] - 2025-03-17
 
 ### Fixed
+- Fixed Styling export
+
+## [1.1.1] - 2025-03-17
+
+### Fixed
 - Fixed newline characters being replaced with commas in rendered text
 - Updated package name in documentation and links
 - Updated repository links to point to the correct GitHub repository
