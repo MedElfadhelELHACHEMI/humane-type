@@ -1,17 +1,25 @@
 // Main package export file
 // Export all components, hooks, and utilities from this file
 
-import App from './App';
-import { Button } from './components/Button';
+import HumaneType from './components/HumaneType';
+import HumaneTitle from './components/HumaneTitle';
+import HumaneBody from './components/HumaneBody';
 
 // Type exports
-export type { ButtonProps } from './components/Button';
+export type { 
+  HumaneTypeProps, 
+  HumaneTitleProps, 
+  HumaneBodyProps,
+  BodyOptions,
+  TitleOptions 
+} from './types';
 
 // Component exports
-export { App, Button };
+export { HumaneType, HumaneTitle, HumaneBody };
 
 // Default export 
 export default {
-  App,
-  Button,
+  HumaneType,
+  HumaneTitle,
+  HumaneBody,
 };

@@ -1,9 +1,9 @@
 {
   "name": "humane",
   "version": "0.1.0",
-  "description": "A modern React UI library with carefully crafted components",
+  "description": "React component library for adding natural, humanized variations to text",
   "author": "",
-  "license": "MIT",
+  "license": "CC-BY-4.0",
   "type": "module",
   "main": "dist/humane.umd.js",
   "module": "dist/humane.es.js",
@@ -13,10 +13,11 @@
   ],
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/humane.es.js",
-      "require": "./dist/humane.umd.js",
-      "types": "./dist/index.d.ts"
-    }
+      "require": "./dist/humane.umd.js"
+    },
+    "./style.css": "./dist/humane.css"
   },
   "scripts": {
     "dev": "vite",
@@ -24,7 +25,6 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "prepublishOnly": "npm run build",
-    "example": "vite example"
   },
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",
@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
+    "@types/node": "^22.13.10",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react-swc": "^3.8.0",
@@ -50,11 +51,13 @@
   },
   "keywords": [
     "react",
+    "typography",
+    "humanized",
+    "text",
+    "handwriting",
+    "design",
     "ui",
-    "components",
-    "frontend",
-    "library",
-    "typescript"
+    "components"
   ],
   "repository": {
     "type": "git",
