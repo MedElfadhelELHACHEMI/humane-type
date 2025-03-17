@@ -1,6 +1,6 @@
 {
-  "buildCommand": "npm run build:app",
+  "buildCommand": "pnpm run build:app",
   "outputDirectory": "dist-app",
-  "devCommand": "npm run dev",
-  "installCommand": "npm install"
+  "devCommand": "pnpm run dev",
+  "installCommand": "pnpm install"
 }
