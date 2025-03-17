@@ -25,10 +25,10 @@ const HumaneType = ({
   };
 
   const defaultTitleOptions = {
-    rotationVariation: 3,  // Character rotation variation
+    rotationVariation: 1,  // Character rotation variation
     baselineVariation: 1,  // Baseline shift variation
-    trackingVariation: 100, // Tracking (letter-spacing) variation
-    sizeVariation: 0,      // Font size variation
+    trackingVariation: 20, // Tracking (letter-spacing) variation
+    sizeVariation: 5,      // Font size variation
   };
 
   // Merge defaults with provided options

@@ -13,10 +13,10 @@ function App() {
 
   // State for title text options
   const [titleOptions, setTitleOptions] = useState({
-    rotationVariation: 3,
+    rotationVariation: 1,
     baselineVariation: 1,
-    trackingVariation: 100,
-    sizeVariation: 0,
+    trackingVariation: 20,
+    sizeVariation: 5,
   })
 
   // Handler for updating body options
