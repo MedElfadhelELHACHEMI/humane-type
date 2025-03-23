@@ -1,66 +1,107 @@
 .app-container {
-  max-width: 1200px;
+  min-width: 80vw;
   margin: 0 auto;
   padding: 2rem;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 h1 {
-  font-size: 2.5rem;
+  text-align: center;
   margin-bottom: 2rem;
-  font-weight: 600;
   color: #333;
 }
 
-h2 {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-  font-weight: 500;
+.demo-section {
+  margin-bottom: 3rem;
+  padding: 1.5rem;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.demo-section h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
   color: #444;
 }
 
-h3 {
-  font-size: 1.2rem;
-  margin: 1.5rem 0 0.75rem;
-  font-weight: 500;
-  color: #555;
-}
-
-.demo-section {
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  padding: 1.5rem;
+.controls {
   margin-bottom: 2rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 1rem;
+  background-color: #eee;
+  border-radius: 6px;
+  position: relative;
 }
 
-.component-demo {
+.control-group {
+  margin-bottom: 1rem;
+}
+
+.control-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.control-group input[type="range"] {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.copy-button {
+  background-color: #4a86e8;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 10px;
+}
+
+.copy-button:hover {
+  background-color: #3a76d8;
+}
+
+.copy-button:active {
+  background-color: #2a66c8;
+}
+
+.copy-notification {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  background-color: #4caf50;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  animation: fadeInOut 2s ease;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.preview {
+  padding: 1.5rem;
   background-color: white;
   border-radius: 6px;
-  padding: 1.5rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.button-row {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-bottom: 1.5rem;
+/* Specific styles for humane components */
+.humane-type.title {
+  margin: 1rem 0;
+  color: #333;
 }
 
-/* Default button styles if not using a CSS framework */
-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 500;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-  cursor: pointer;
-  border: none;
-}
-
-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+.humane-type.body {
+  margin: 0 ;
+  font-size: 1rem;
+  line-height: 1.6;
 }

@@ -1,0 +1,54 @@
+/* HumaneType component styles */
+.humane-type {
+  position: relative;
+}
+
+.humane-container {
+  position: relative;
+}
+
+.humane-line {
+  position: relative;
+  min-height: 1em;
+  margin-bottom: 0.5em;
+}
+
+.humane-hidden-text {
+  visibility: hidden;
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Specific styling for title mode */
+.humane-type.title {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Ensure SVG text has proper defaults */
+.humane-type svg text {
+  fill: currentColor;
+  font-size: inherit;
+  font-family: inherit;
+  dominant-baseline: middle;
+}
+
+/* SVG text paths should inherit font properties */
+.humane-type svg textPath {
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: inherit;
+  font-style: inherit;
+}
+
+/* Make sure the SVG container has appropriate sizing */
+.humane-line svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: visible;
+}
